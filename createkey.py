@@ -55,8 +55,13 @@ def create(usb, opt=0, sed=0):
 
 
         ##text file to import seed words are created
-        seed=open(usb + ":/seed.txt","w")
-        seed.write(seedwords)
+        export = input("Do you want to export the seeds??[N/y]")
+        if export == "y":
+            usb = input("please type  the letter for USB disk path: ")
+
+            usb = usb.capitalize()
+            seed = open(usb + ":/seed.txt","w")
+            seed.write(seedwords)
         bip39_m = PRNG(t)
     if opt == 1:
         bip39_m=PRNG(sed)
@@ -158,13 +163,19 @@ def create(usb, opt=0, sed=0):
 
     created = addr(priv=priv1.to_string,public=bytes.fromhex("04") + priv1.get_verifying_key().to_string(),address=address.decode(),wif=wif)
 
-    with open(usb + ":/private.pem", "wb") as f:
-         f.write(priv1.to_pem())
-    with open(usb + ":/public.pem", "wb") as f:
-         f.write(public1.to_pem())
+    export = input("Do you want to export the address??[N/y]")
+    if export == "y":
+        usb = input("please type  the letter for USB disk path: ")
 
-    imp_addr = open(usb + ":/address.txt","w")
-    imp_addr.write("address is: " + address.decode() + "\nwif: " + wif.decode() +
+        usb = usb.capitalize()
+
+        with open(usb + ":/private.pem", "wb") as f:
+            f.write(priv1.to_pem())
+        with open(usb + ":/public.pem", "wb") as f:
+            f.write(public1.to_pem())
+
+        imp_addr = open(usb + ":/address.txt","w")
+        imp_addr.write("address is: " + address.decode() + "\nwif: " + wif.decode() +
                     "\npriv key: " + priv1.to_string().hex() + "\npublic key: "
                    + priv1.get_verifying_key().to_string().hex() + "\ncompressed public key: " + pub_key_comp2.hex())
     print("\n Testnet:"+str(testnet) + "\n")

@@ -2,6 +2,9 @@ from ecdsa import SigningKey, VerifyingKey
 import hashlib
 import base58check
 def loadkey(usb):
+
+    usb = input("please type  the letter for USB disk path: ")
+    usb = usb.capitalize()
     with open(usb + ":/private.pem") as f:
         sk = SigningKey.from_pem(f.read())
 

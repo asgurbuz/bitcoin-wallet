@@ -1,6 +1,8 @@
 from createkey import create
 
 def fromseed(usb):
+    usb = input("please type  the letter for USB disk path: ")
+    usb = usb.capitalize()
     seedb=""
     biplist = []
     seed = open(usb + ":/seed.txt")
@@ -12,4 +14,6 @@ def fromseed(usb):
 
     return seedb.removeprefix("0b")
 def keyfromseed(usb,seedb):
+    usb = input("please type  the letter for USB disk path: ")
+    usb = usb.capitalize()
     create(usb,opt = 1,sed=seedb)
